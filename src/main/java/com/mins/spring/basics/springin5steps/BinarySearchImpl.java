@@ -8,16 +8,14 @@ public class BinarySearchImpl {
 
     //sort the array, then search it, then return the res index     - understanding tight/loose coupling
 
-    @Autowired //marking this as a dependency
+    @Autowired //marking this as a dependency. technically setter injection as well
     private SortAlgorithm sortAlgorithm;
 
+//    setter injection with constructor optional if use Autowired. rule of thumb: setter if "optional" dependency, constructor if not
     public BinarySearchImpl(SortAlgorithm sortAlgorithm) {
-        super();
         this.sortAlgorithm = sortAlgorithm;
     }
-
-    public BinarySearchImpl() {
-    }
+    public BinarySearchImpl() {}
 
     public int binarySearch(int[] numbers, int numberToSearchFor) {
 
