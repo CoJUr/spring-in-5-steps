@@ -27,6 +27,7 @@ public class SpringIn5StepsScopeApplication {
 		LOGGER.info("{}", personDao2); //same bean instance because @Scope is default singleton
 
 		LOGGER.info("{}", personDao.getJdbcConnection());
+		LOGGER.info("{}", personDao.getJdbcConnection()); //want 2 different instances of JdbcConnection for the same instance. autowiring a proxy in jdbcConnection
 		LOGGER.info("{}", personDao2.getJdbcConnection()); //same instance of connection because @Scope is default singleton
 
 	}
