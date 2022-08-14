@@ -1,9 +1,14 @@
 package com.mins.spring.basics.springin5steps;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component //now marked as a bean
 public class BinarySearchImpl {
 
     //sort the array, then search it, then return the res index     - understanding tight/loose coupling
 
+    @Autowired //marking this as a dependency
     private SortAlgorithm sortAlgorithm;
 
     public BinarySearchImpl(SortAlgorithm sortAlgorithm) {
