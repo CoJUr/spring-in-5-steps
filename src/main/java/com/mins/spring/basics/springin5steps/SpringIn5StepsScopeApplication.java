@@ -1,42 +1,33 @@
 package com.mins.spring.basics.springin5steps;
 
 import com.mins.spring.basics.springin5steps.basic.BinarySearchImpl;
+import com.mins.spring.basics.springin5steps.scope.PersonDAO;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+
 @SpringBootApplication
 public class SpringIn5StepsScopeApplication {
 
+	private static Logger LOGGER = LoggerFactory.getLogger(SpringIn5StepsScopeApplication.class);
+
 	public static void main(String[] args) {
 
-//		BinarySearchImpl binarySearch = new BinarySearchImpl();
-//		BinarySearchImpl binarySearch = new BinarySearchImpl(new BubbleSortAlgorithm());
 
-//		BinarySearchImpl binarySearch = new BinarySearchImpl(new QuickSortAlgorithm()); spring does this automatically now
-
-		//works bc SortAlgorithm is a dependency of BinarySearchImpl
-//		is there a way to avoid needing to create a new instance of SortAlgorithm and BinarySearchImpl? yes; Spring
-
-
-//		spring Application Context will maintain all beans. get beans from context
 		ApplicationContext applicationContext = SpringApplication.run(SpringIn5StepsScopeApplication.class, args);
 
-		BinarySearchImpl binarySearch = applicationContext.getBean(BinarySearchImpl.class); //get bean from context, assign local var
-		//picked up bean from context, not new instance of BinarySearchImpl
+		PersonDAO personDao = applicationContext.getBean(PersonDAO.class); //get bean from context, assign local var
 
-		//the bean is a singleton, so it will be the same instance (object) every time.
-		BinarySearchImpl binarySearch1 = applicationContext.getBean(BinarySearchImpl.class); //get bean from context, assign local var
-		System.out.println(binarySearch);
-		System.out.println(binarySearch1);
+		PersonDAO personDao2 = applicationContext.getBean(PersonDAO.class); //get bean from context, assign local var
 
-//		use the bean to execute the binary search
-		int result = binarySearch.binarySearch(new int[] {12, 4, 6}, 3);
+		LOGGER.info("{}", personDao);
+		LOGGER.info("{}", personDao2); //same bean instance because @Scope is default singleton
 
-		System.out.println(result);
-
-//spring now managing the lifecycle of beans.
-
+		LOGGER.info("{}", personDao.getJdbcConnection());
+		LOGGER.info("{}", personDao2.getJdbcConnection()); //same instance of connection because @Scope is default singleton
 
 	}
 
